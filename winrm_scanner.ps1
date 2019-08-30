@@ -10,7 +10,7 @@ Write-Output "   \ \____________\ \__\ \__\\ \__\ \__\\ _\\ \__\    \ \__\      
 Write-Output "    \|____________|\|__|\|__| \|__|\|__|\|__|\|__|     \|__|       |\_________\|_______|\|__|\|__|\|__| \|__|\|__| \|__|\|_______|\|__|\|__|"
 Write-Output "                                                                   \|_________|                                                             "
 Write-Output "                                                                                                                                            "
-
+Write-Output " Author: Https://ctrlaltdel.blog"
 Write-Output "Choose an option:"
 Write-Output "Option 1: Single IP Scan             |       Option 2: IP List Scan        "
 
